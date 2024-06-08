@@ -8,15 +8,15 @@ import androidx.recyclerview.widget.ListAdapter
 import com.example.recyclerviewsample.databinding.ListItemBinding
 
 class LinkListAdapter :
-    ListAdapter<ListItemModel, LinkListAdapter.ViewHolder>(DIFF_UTIL_ITEM_CALLBACK) {
+    ListAdapter<LinkItemModel, LinkListAdapter.ViewHolder>(DIFF_UTIL_ITEM_CALLBACK) {
 
     class ViewHolder(
         private val binding: ListItemBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(listItemModel: ListItemModel) {
-            binding.textView.text = listItemModel.title
+        fun bind(linkItemModel: LinkItemModel) {
+            binding.textView.text = linkItemModel.title
             binding.root.setOnClickListener {
-                listItemModel.clickAction()
+                linkItemModel.clickAction()
             }
         }
     }
@@ -32,17 +32,17 @@ class LinkListAdapter :
     }
 
     companion object {
-        val DIFF_UTIL_ITEM_CALLBACK = object : DiffUtil.ItemCallback<ListItemModel>() {
+        val DIFF_UTIL_ITEM_CALLBACK = object : DiffUtil.ItemCallback<LinkItemModel>() {
             override fun areItemsTheSame(
-                oldItem: ListItemModel,
-                newItem: ListItemModel
+                oldItem: LinkItemModel,
+                newItem: LinkItemModel
             ): Boolean {
                 return oldItem.title == newItem.title
             }
 
             override fun areContentsTheSame(
-                oldItem: ListItemModel,
-                newItem: ListItemModel
+                oldItem: LinkItemModel,
+                newItem: LinkItemModel
             ): Boolean {
                 return oldItem == newItem
             }

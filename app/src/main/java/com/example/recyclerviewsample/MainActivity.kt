@@ -1,16 +1,18 @@
 package com.example.recyclerviewsample
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.recyclerviewsample.databinding.ActivityMainBinding
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
+    private val viewModel = MainViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,16 +33,10 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        val linkList = listOf(
-            ListItemModel("Google", "https://www.google.com", {}),
-            ListItemModel("Yahoo", "https://www.yahoo.com", {}),
-            ListItemModel("Bing", "https://www.bing.com", {}),
-            ListItemModel("DuckDuckGo", "https://www.duckduckgo.com", {}),
-            ListItemModel("Baidu", "https://www.baidu.com", {}),
-            ListItemModel("Yandex", "https://www.yandex.com", {}),
-            ListItemModel("Ask", "https://www.ask.com", {}),
-            ListItemModel("AOL", "https://www.aol.com", {}),
-        )
-        adapter.submitList(linkList)
+        lifecycleScope.launch {
+            viewModel.items.collect {
+                adapter.submitList(it)
+            }
+        }
     }
 }

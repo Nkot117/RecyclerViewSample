@@ -1,6 +1,6 @@
 package com.example.recyclerviewsample
 
-data class ListItemModel(
+data class LinkItemModel(
     val title: String,
     val url: String,
     val clickAction: () -> Unit
